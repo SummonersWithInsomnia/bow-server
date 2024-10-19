@@ -12,6 +12,7 @@
   "license": "UNLICENSED",
   "description": "",
   "dependencies": {
+    "crypto": "^1.0.1",
     "express": "^4.21.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.7.2",
