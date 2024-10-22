@@ -1,9 +1,15 @@
 // Mongo Connection
 
-import mongoose from "mongoose";
-import {MONGODB_URL} from "../app.config";
+const mongoose = require('mongoose');
+const {MONGODB_URL, APP_MODE, ADMIN_ACCOUNTS} = require('../app.config');
 
-export class mgc {
+const admin = require('../models/admin');
+const course = require('../models/course');
+const courseRegistration = require('../models/courseRegistration');
+const student = require('../models/student');
+const ticket = require('../models/ticket');
+
+class mgc {
     constructor() {
         throw new Error("Cannot instantiate mgc class");
     }
@@ -67,4 +73,39 @@ export class mgc {
             console.error(err);
         }
     }
+
+    static async initDatabase() {
+        try {
+            if (APP_MODE === 'Demo') {
+                await this.deleteRecords(admin, {}, admin.deleteMany);
+                await this.deleteRecords(course, {}, course.deleteMany);
+                await this.deleteRecords(courseRegistration, {}, courseRegistration);
+                await this.deleteRecords(student, {}, student.deleteMany);
+                await this.deleteRecords(ticket, {}, ticket.deleteMany);
+
+                for (let i = 0; i < ADMIN_ACCOUNTS.length; i++) {
+                    let id = await this.countRecords(admin).then((count) => { return count; });
+
+                    await this.createRecord(admin, {
+                        id: id,
+                        type: ADMIN_ACCOUNTS[i].type,
+                        username: ADMIN_ACCOUNTS[i].username,
+                        password: ADMIN_ACCOUNTS[i].password,
+                        firstName: ADMIN_ACCOUNTS[i].firstName,
+                        lastName: ADMIN_ACCOUNTS[i].lastName,
+                        email: ADMIN_ACCOUNTS[i].email,
+                        phoneCountryCode: ADMIN_ACCOUNTS[i].phoneCountryCode,
+                        phoneNumber: ADMIN_ACCOUNTS[i].phoneNumber,
+                        birthday: ADMIN_ACCOUNTS[i].birthday,
+                        department: ADMIN_ACCOUNTS[i].department,
+                    });
+                }
+                console.log("Initialized the database");
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    }
 }
+
+module.exports = mgc;
