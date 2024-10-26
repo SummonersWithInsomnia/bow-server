@@ -8,6 +8,7 @@ const course = require('../models/course');
 const courseRegistration = require('../models/courseRegistration');
 const student = require('../models/student');
 const ticket = require('../models/ticket');
+const bcrypt = require("bcrypt");
 
 class mgc {
     constructor() {
@@ -90,7 +91,7 @@ class mgc {
                         id: id,
                         type: ADMIN_ACCOUNTS[i].type,
                         username: ADMIN_ACCOUNTS[i].username,
-                        password: ADMIN_ACCOUNTS[i].password,
+                        password: bcrypt.hashSync(ADMIN_ACCOUNTS[i].password, 10),
                         firstName: ADMIN_ACCOUNTS[i].firstName,
                         lastName: ADMIN_ACCOUNTS[i].lastName,
                         email: ADMIN_ACCOUNTS[i].email,
