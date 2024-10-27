@@ -133,8 +133,6 @@ async function PostSignupStudent(req, res) {
         let createdStudent = await mgc.createRecord(student, newStudent)
             .then((data) => {return data;});
 
-        console.log(createdStudent);
-
         if (createdStudent !== null) {
             const payload = {
                 username: createdStudent.username,
