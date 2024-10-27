@@ -66,7 +66,7 @@ async function DeleteDropCourse(req, res) {
         }
 
         let courseRegistrationData = await mgc.updateRecords(courseRegistration,
-            {id: req.body.id, deleted: false}, courseRegistration.updateOne, {deleted: true})
+            {id: Number(req.body.id), deleted: false}, courseRegistration.updateOne, {deleted: true})
             .then((data) => {
                 return data;
             });
