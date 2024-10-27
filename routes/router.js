@@ -3,6 +3,7 @@ const PostLoginAdmin = require("../controllers/admin/PostLoginAdmin");
 const GetCourses = require("../controllers/course/GetCourses");
 const PostLoginStudent = require("../controllers/student/PostLoginStudent");
 const PostSignupStudent = require("../controllers/student/PostSignupStudent");
+const GetDashboard = require("../controllers/dashboard/GetDashboard");
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
@@ -14,6 +15,7 @@ router.get('/courses', (req, res, next) => {
 });
 
 router.get('/dashboard', (req, res, next) => {
+    GetDashboard(req, res);
 });
 
 router.get('/profile', (req, res, next) => {
