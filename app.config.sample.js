@@ -20,7 +20,7 @@
 //     }
 // ];
 //
-// const APP_MODE = 'Demo';
+// const APP_MODE = 'Init';
 //
 // module.exports = {
 //     MONGODB_URL: MONGODB_URL,
