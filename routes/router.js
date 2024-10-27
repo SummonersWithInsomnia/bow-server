@@ -12,6 +12,11 @@ const GetMyCourses = require("../controllers/course-registration/GetMyCourses");
 const PostSearchStudentList = require("../controllers/student/PostSearchStudentList");
 const PostSearchStudentListByCourse = require("../controllers/student/PostSearchStudentListByCourse");
 const PostSendTicket = require("../controllers/ticket/PostSendTicket");
+const DeleteCourse = require("../controllers/course/DeleteCourse");
+const DeleteDropCourse = require("../controllers/course-registration/DeleteDropCourse");
+const PutCourse = require("../controllers/course/PutCourse");
+const PostRegisterCourse = require("../controllers/course-registration/PostRegisterCourse");
+const PostCreateCourse = require("../controllers/course/PostCreateCourse");
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
@@ -67,9 +72,11 @@ router.post('/send-ticket', (req, res, next) => {
 });
 
 router.post('/create-course', (req, res, next) => {
+    PostCreateCourse(req, res);
 });
 
 router.post('/register-course', (req, res, next) => {
+    PostRegisterCourse(req, res);
 });
 
 router.put('/profile', (req, res, next) => {
@@ -77,12 +84,15 @@ router.put('/profile', (req, res, next) => {
 });
 
 router.put('/course', (req, res, next) => {
+    PutCourse(req, res);
 });
 
 router.delete('/course', (req, res, next) => {
+    DeleteCourse(req, res);
 });
 
 router.delete('/drop-course', (req, res, next) => {
+    DeleteDropCourse(req, res);
 });
 
 router.all('*', (req, res, next) => {
