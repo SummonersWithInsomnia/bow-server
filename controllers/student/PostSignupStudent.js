@@ -158,7 +158,7 @@ async function PostSignupStudent(req, res) {
     } else {
         res.status(400).send({
             "status": 400,
-            "message": "The Following Fields are Required: username, password, firstName, lastName, email, phoneCountryCode, phoneNumber, birthday, department, program"
+            "message": "Bad Request"
         });
     }
 }
