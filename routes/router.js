@@ -6,6 +6,11 @@ const PostSignupStudent = require("../controllers/student/PostSignupStudent");
 const GetDashboard = require("../controllers/dashboard/GetDashboard");
 const GetProfile = require("../controllers/profile/GetProfile");
 const PutProfile = require("../controllers/profile/PutProfile");
+const GetUserInfo = require("../controllers/user/GetUserInfo");
+const GetTickets = require("../controllers/ticket/GetTickets");
+const GetMyCourses = require("../controllers/course-registration/GetMyCourses");
+const PostSearchStudentList = require("../controllers/student/PostSearchStudentList");
+const PostSearchStudentListByCourse = require("../controllers/student/PostSearchStudentListByCourse");
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
@@ -25,18 +30,23 @@ router.get('/profile', (req, res, next) => {
 });
 
 router.get('/user', (req, res, next) => {
+    GetUserInfo(req, res);
 });
 
 router.get('/tickets', (req, res, next) => {
+    GetTickets(req, res);
 });
 
-router.get('/student-list', (req, res, next) => {
+router.post('/student-list', (req, res, next) => {
+    PostSearchStudentList(req, res);
 });
 
-router.get('/student-list-by-course', (req, res, next) => {
+router.post('/student-list-by-course', (req, res, next) => {
+    PostSearchStudentListByCourse(req, res);
 });
 
 router.get('/my-courses', (req, res, next) => {
+    GetMyCourses(req, res);
 });
 
 router.post('/login-student', (req, res, next) => {
