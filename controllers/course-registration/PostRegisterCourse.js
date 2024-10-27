@@ -164,12 +164,12 @@ async function PostRegisterCourse(req, res) {
         }
 
         courseData.availableSeats--;
-        let updatedCourse = await mgc.updateRecords(course, {id: courseData.id, deleted: false}, course.updateOne, courseData)
+        let updatedCourseResult = await mgc.updateRecords(course, {id: courseData.id, deleted: false}, course.updateOne, courseData)
             .then((data) => {
                 return data;
             });
 
-        if (updatedCourse === null) {
+        if (updatedCourseResult.acknowledged === false) {
             res.status(500).send({
                 "status": 500,
                 "message": "Internal Server Error"

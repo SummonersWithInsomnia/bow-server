@@ -117,12 +117,12 @@ async function PutProfile(req, res) {
     userData.phoneNumber = Number(req.body.phoneNumber);
     userData.birthday = req.body.birthday;
 
-    let updatedUser = await mgc.updateRecords(userModel, {id: userData.id}, userModel.updateOne, userData)
+    let updatedUserResult = await mgc.updateRecords(userModel, {id: userData.id}, userModel.updateOne, userData)
         .then((data) => {
             return data;
         });
 
-    if (updatedUser !== null) {
+    if (updatedUserResult.acknowledged === true) {
         res.status(200).send({
             "status": 200,
             "message": "Profile Updated"

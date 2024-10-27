@@ -70,19 +70,19 @@ async function DeleteCourse(req, res) {
             return;
         }
 
-        let courseRegistrationData = await mgc.updateRecords(courseRegistration,
+        let courseRegistrationDataResult = await mgc.updateRecords(courseRegistration,
             {course: Number(req.body.id), deleted: false}, courseRegistration.updateMany, {deleted: true})
             .then((data) => {
                 return data;
             });
 
-        let courseData = await mgc.updateRecords(course,
+        let courseDataResult = await mgc.updateRecords(course,
             {id: Number(req.body.id), deleted: false}, course.updateOne, {deleted: true})
             .then((data) => {
                 return data;
             });
 
-        if (courseRegistrationData === null || courseData === null) {
+        if (courseRegistrationDataResult.acknowledged === false || courseDataResult.acknowledged === false) {
             res.status(400).send({
                 "status": 400,
                 "message": "Bad Request"

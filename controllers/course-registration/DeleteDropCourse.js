@@ -65,13 +65,19 @@ async function DeleteDropCourse(req, res) {
             return;
         }
 
-        let courseRegistrationData = await mgc.updateRecords(courseRegistration,
+        let courseRegistrationData = await mgc.findRecords(courseRegistration,
+            {id: Number(req.body.id), deleted: false}, courseRegistration.findOne)
+            .then((data) => {
+                return data;
+            });
+
+        let courseRegistrationDataResult = await mgc.updateRecords(courseRegistration,
             {id: Number(req.body.id), deleted: false}, courseRegistration.updateOne, {deleted: true})
             .then((data) => {
                 return data;
             });
 
-        if (courseRegistrationData === null) {
+        if (courseRegistrationDataResult.acknowledged === false) {
             res.status(500).send({
                 "status": 500,
                 "message": "Internal Server Error"
@@ -94,12 +100,12 @@ async function DeleteDropCourse(req, res) {
 
         courseData.availableSeats += 1;
 
-        let updatedCourseData = await mgc.updateRecords(course, {id: courseData.id}, course.updateOne, courseData)
+        let updatedCourseDataResult = await mgc.updateRecords(course, {id: courseData.id}, course.updateOne, courseData)
             .then((data) => {
                 return data;
             });
 
-        if (updatedCourseData === null) {
+        if (updatedCourseDataResult.acknowledged === false) {
             res.status(500).send({
                 "status": 500,
                 "message": "Internal Server Error"

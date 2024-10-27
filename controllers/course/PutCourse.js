@@ -4,6 +4,7 @@ const student = require("../../models/student");
 const admin = require("../../models/admin");
 const mgc = require("../../mgc/mgc");
 const course = require("../../models/course");
+const courseRegistration = require("../../models/courseRegistration");
 
 async function PutCourse(req, res) {
     const auth = req.headers['authorization'];
@@ -195,6 +196,17 @@ async function PutCourse(req, res) {
             return;
         }
 
+        let registrations = Number(await mgc.countRecords(courseRegistration,
+            {course: Number(req.body.id), deleted: false}).then((data) => {return data;}));
+
+        if (registrations !== req.body.maxSeats - req.body.availableSeats) {
+            res.status(400).send({
+                "status": 400,
+                "message": "Bad Request"
+            });
+            return;
+        }
+
         courseData.name = req.body.name;
         courseData.code = req.body.code;
         courseData.description = req.body.description;
@@ -211,13 +223,13 @@ async function PutCourse(req, res) {
         courseData.maxSeats = Number(req.body.maxSeats);
         courseData.availableSeats = Number(req.body.availableSeats);
 
-        let updatedCourse = await mgc.updateRecords(course,
+        let updatedCourseResult = await mgc.updateRecords(course,
             {id: Number(courseData.id), deleted: false}, course.updateOne, courseData)
             .then((data) => {
                 return data;
             });
 
-        if (updatedCourse === null) {
+        if (updatedCourseResult.acknowledged === false) {
             res.status(500).send({
                 "status": 500,
                 "message": "Internal Server Error"

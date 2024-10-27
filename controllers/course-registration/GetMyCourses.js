@@ -64,14 +64,36 @@ async function GetMyCourses(req, res) {
                 return data;
             });
 
-        for (let i = 0; myCourseRegistrations.length; i++) {
-            let courseData = await mgc.findRecords(course, {id: myCourseRegistrations[i].course, deleted: false}, course.findOne)
-                .then((data) => {
-                    return data;
-                });
+        if (myCourseRegistrations.length !== 0) {
+            for (let i = 0; i < myCourseRegistrations.length; i++) {
+                let courseData = await mgc.findRecords(course, {id: myCourseRegistrations[i].course, deleted: false}, course.findOne)
+                    .then((data) => {
+                        return data;
+                    });
 
-            courseData.registrationId = myCourseRegistrations[i].id;
-            myCourses.push(courseData);
+                let myCourse = {
+                    "id": courseData.id,
+                    "name": courseData.name,
+                    "code": courseData.code,
+                    "description": courseData.description,
+                    "department": courseData.department,
+                    "program": courseData.program,
+                    "term": courseData.term,
+                    "startDate": courseData.startDate,
+                    "endDate": courseData.endDate,
+                    "weekDay": courseData.weekDay,
+                    "startTime": courseData.startTime,
+                    "endTime": courseData.endTime,
+                    "campus": courseData.campus,
+                    "deliveryMethod": courseData.deliveryMethod,
+                    "maxSeats": courseData.maxSeats,
+                    "availableSeats": courseData.availableSeats,
+                    "deleted": courseData.deleted,
+                    "registrationId": myCourseRegistrations[i].id
+                };
+
+                myCourses.push(myCourse);
+            }
         }
 
         res.status(200).send({

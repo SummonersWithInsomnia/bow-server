@@ -70,12 +70,24 @@ async function GetTickets(req, res) {
                 return data;
             });
 
+        let tickets = [];
+
         for (let i = 0; i < ticketData.length; i++) {
             for (let j = 0; j < studentData.length; j++) {
                 if (ticketData[i].student === studentData[j].id) {
-                    ticketData[i].firstName = studentData[j].firstName;
-                    ticketData[i].lastName = studentData[j].lastName;
-                    ticketData[i].email = studentData[j].email;
+
+                    let ticket = {
+                        id: ticketData[i].id,
+                        student: ticketData[i].student,
+                        createdDate: ticketData[i].createdDate,
+                        createdTime: ticketData[i].createdTime,
+                        text: ticketData[i].text,
+                        firstName: studentData[j].firstName,
+                        lastName: studentData[j].lastName,
+                        email: studentData[j].email
+                    };
+
+                    tickets.push(ticket);
                 }
             }
         }
@@ -83,7 +95,7 @@ async function GetTickets(req, res) {
         res.status(200).send({
             "status": 200,
             "message": "OK",
-            "data": ticketData
+            "data": tickets
         });
     } else {
         res.status(400).send({
