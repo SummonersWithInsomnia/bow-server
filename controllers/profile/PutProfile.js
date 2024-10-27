@@ -54,9 +54,6 @@ async function PutProfile(req, res) {
         return;
     }
 
-    console.log(userData);
-    console.log(req.body);
-
     if (!isValidName(req.body.firstName)) {
         res.status(400).send({
             "status": 400,
