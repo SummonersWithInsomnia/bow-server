@@ -27,7 +27,6 @@ async function PostSearchCourses(req, res) {
     let safeNameAndCodeQueryItems = {};
     let safeOtherQueryItems = {};
 
-    safeOtherQueryItems.deleted = false;
 
     for (let [key, value] of Object.entries(limitedNameAndCodeQueryItems)) {
         if (limitedNameAndCodeQueryItems[key] !== "" && limitedNameAndCodeQueryItems[key] !== undefined) {
@@ -41,7 +40,18 @@ async function PostSearchCourses(req, res) {
         }
     }
 
-    let resultData = await mgc.findRecords(course, safeNameAndCodeQueryItems, course.find);
+    safeOtherQueryItems.deleted = false;
+
+    let resultData = await mgc.findRecords(course, safeOtherQueryItems, course.find);
+
+    if (resultData === null) {
+        res.status(400).send({
+            "status": 400,
+            "message": "Bad Request"
+        });
+        return;
+    }
+
     let optimisedResultData = [];
 
     for (let i = 0; i < resultData.length; i++) {
