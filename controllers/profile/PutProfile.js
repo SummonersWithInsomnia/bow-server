@@ -117,7 +117,7 @@ async function PutProfile(req, res) {
     userData.phoneNumber = Number(req.body.phoneNumber);
     userData.birthday = req.body.birthday;
 
-    let updatedUser = await mgc.updateRecords(userModel,{id: userData.id }, userModel.updateOne, userData)
+    let updatedUser = await mgc.updateRecords(userModel, {id: userData.id}, userModel.updateOne, userData)
         .then((data) => {
             return data;
         });
