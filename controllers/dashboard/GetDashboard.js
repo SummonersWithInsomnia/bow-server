@@ -36,7 +36,7 @@ async function GetDashboard(req, res) {
     if (userModel === null) {
         res.status(400).send({
             "status": 400,
-            "message": "Bad Request 1"
+            "message": "Bad Request"
         });
         return;
     }
@@ -49,7 +49,7 @@ async function GetDashboard(req, res) {
     if (userData === null) {
         res.status(400).send({
             "status": 400,
-            "message": "Bad Request 2"
+            "message": "Bad Request"
         });
         return;
     }
@@ -82,7 +82,7 @@ async function GetDashboard(req, res) {
     } else {
         res.status(400).send({
             "status": 400,
-            "message": "Bad Request 3"
+            "message": "Bad Request"
         });
     }
 }
