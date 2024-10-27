@@ -22,6 +22,7 @@ async function PostLoginStudent(req, res) {
 
         if (await bcrypt.compare(req.body.password, studentData.password)) {
             const payload = {
+                id: studentData.id,
                 username: studentData.username,
                 type: studentData.type
             };

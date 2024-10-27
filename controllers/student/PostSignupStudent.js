@@ -135,6 +135,7 @@ async function PostSignupStudent(req, res) {
 
         if (createdStudent !== null) {
             const payload = {
+                id: createdStudent.id,
                 username: createdStudent.username,
                 type: createdStudent.type
             };

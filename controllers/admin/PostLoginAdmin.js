@@ -22,6 +22,7 @@ async function PostLoginAdmin(req, res) {
 
         if (await bcrypt.compare(req.body.password, adminData.password)) {
             const payload = {
+                id: adminData.id,
                 username: adminData.username,
                 type: adminData.type
             };
