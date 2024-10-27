@@ -10,8 +10,8 @@ router.get('/', (req, res, next) => {
     res.status(200).send("It works");
 });
 
-router.get('/courses', (req, res, next) => {
-    // GetCourses(req, res);
+router.post('/courses', (req, res, next) => {
+    GetCourses(req, res);
 });
 
 router.get('/dashboard', (req, res, next) => {
