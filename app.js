@@ -7,6 +7,15 @@ mgc.initDatabase();
 
 app.use(express.json());
 
+// Cross-Origin Resource Sharing
+const cors = require('cors');
+const corsOptions = {
+    origin: '*',
+    methods: 'POST, GET, PUT, DELETE, PATCH',
+    allowedHeaders: 'Content-Type, Authorization'
+};
+app.use(cors(corsOptions));
+
 const router = require('./routes/router');
 app.use(router);
 
