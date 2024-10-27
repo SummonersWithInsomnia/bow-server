@@ -1,6 +1,6 @@
 const express = require('express');
 const PostLoginAdmin = require("../controllers/admin/PostLoginAdmin");
-const GetCourses = require("../controllers/course/GetCourses");
+const PostSearchCourses = require("../controllers/course/PostSearchCourses");
 const PostLoginStudent = require("../controllers/student/PostLoginStudent");
 const PostSignupStudent = require("../controllers/student/PostSignupStudent");
 const GetDashboard = require("../controllers/dashboard/GetDashboard");
@@ -11,7 +11,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/courses', (req, res, next) => {
-    GetCourses(req, res);
+    PostSearchCourses(req, res);
 });
 
 router.get('/dashboard', (req, res, next) => {

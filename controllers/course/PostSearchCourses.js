@@ -1,7 +1,7 @@
 const mgc = require("../../mgc/mgc");
 const course = require("../../models/course");
 
-async function GetCourses(req, res) {
+async function PostSearchCourses(req, res) {
     if (Object.keys(req.body).length === 0) {
         let courseData = await mgc.findRecords(course, {"deleted": false}, course.find);
         res.status(200).send({
@@ -65,4 +65,4 @@ async function GetCourses(req, res) {
     });
 }
 
-module.exports = GetCourses;
+module.exports = PostSearchCourses;
