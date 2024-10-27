@@ -77,7 +77,7 @@ class mgc {
 
     static async initDatabase() {
         try {
-            if (APP_MODE === 'Demo') {
+            if (APP_MODE === 'Init') {
                 await this.deleteRecords(admin, {}, admin.deleteMany);
                 await this.deleteRecords(course, {}, course.deleteMany);
                 await this.deleteRecords(courseRegistration, {}, courseRegistration);
