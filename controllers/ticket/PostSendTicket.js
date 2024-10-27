@@ -76,6 +76,7 @@ async function PostSendTicket(req, res) {
         now.setHours(now.getHours() - 6);
 
         let createdTicket = await mgc.createRecord(ticket, {
+            id: Number(await mgc.countRecords(ticket).then((count) => {return count;})),
             student: userData.id,
             createdDate: now.toISOString().substring(0, 10),
             createdTime: now.toISOString().substring(11, 19),
