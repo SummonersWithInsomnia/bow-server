@@ -4,6 +4,8 @@ const PostSearchCourses = require("../controllers/course/PostSearchCourses");
 const PostLoginStudent = require("../controllers/student/PostLoginStudent");
 const PostSignupStudent = require("../controllers/student/PostSignupStudent");
 const GetDashboard = require("../controllers/dashboard/GetDashboard");
+const GetProfile = require("../controllers/profile/GetProfile");
+const PutProfile = require("../controllers/profile/PutProfile");
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
@@ -19,6 +21,7 @@ router.get('/dashboard', (req, res, next) => {
 });
 
 router.get('/profile', (req, res, next) => {
+    GetProfile(req, res);
 });
 
 router.get('/user', (req, res, next) => {
@@ -58,6 +61,7 @@ router.post('/register-course', (req, res, next) => {
 });
 
 router.put('/profile', (req, res, next) => {
+    PutProfile(req, res);
 });
 
 router.put('/course', (req, res, next) => {
