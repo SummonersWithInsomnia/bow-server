@@ -11,6 +11,7 @@ const GetTickets = require("../controllers/ticket/GetTickets");
 const GetMyCourses = require("../controllers/course-registration/GetMyCourses");
 const PostSearchStudentList = require("../controllers/student/PostSearchStudentList");
 const PostSearchStudentListByCourse = require("../controllers/student/PostSearchStudentListByCourse");
+const PostSendTicket = require("../controllers/ticket/PostSendTicket");
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
@@ -62,6 +63,7 @@ router.post('/signup-student', (req, res, next) => {
 });
 
 router.post('/send-ticket', (req, res, next) => {
+    PostSendTicket(req, res);
 });
 
 router.post('/create-course', (req, res, next) => {
